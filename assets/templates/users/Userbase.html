@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'img/P_L_L.png' %}" type="image/png">
+
+    <title>{% block title %}Potato Leaf Disease Detection{% endblock %}</title>
+
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    {% block extra_css %}{% endblock %}
+
+    <style>
+        .footer {
+            width: 100%;
+            padding: 12px 0;
+            text-align: center;
+            background: #0c0f0c;
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Loader Styles */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+        }
+
+        .loader-circle {
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #2da05a;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        .loader-text {
+            color: white;
+            margin-top: 12px;
+            font-size: 16px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg);}
+            100% { transform: rotate(360deg);}
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar" id="navbar" style="background-color: black;">
+    <div class="nav-container">
+
+        <div class="nav-brand">
+            <img src="{% static 'img/P_L.png' %}" alt="Brand Logo" class="brand-logo">
+            <h1 class="brand-title">Potato Leaf Disease Detection</h1>
+        </div>
+
+        <button class="nav-toggle" id="navToggle">
+            <span></span><span></span><span></span>
+        </button>
+
+        <ul class="nav-menu" id="navMenu">
+            <li class="nav-item"><a class="nav-link" href="{% url 'UserHome' %}"><i class="fa-solid fa-house"></i> Home</a></li>
+            <!-- Training link now shows loader and navigates normally -->
+            <li class="nav-item"><a class="nav-link" href="{% url 'training' %}" onclick="showLoader()"><i class="fa-solid fa-gears"></i> Training</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'prediction' %}"><i class="fa-solid fa-microscope"></i> Predict</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+        </ul>
+
+    </div>
+</nav>
+
+<!-- Global Loader (hidden by default) -->
+<div id="pageLoader" class="page-loader" style="display:none;">
+    <div class="loader-circle"></div>
+    <div class="loader-text">Loading...</div>
+</div>
+
+{% block content %}
+{% endblock %}
+
+<footer class="footer">
+    <p>© 2025 Potato Leaf Disease Detection</p>
+</footer>
+
+<script src="{% static 'js/scripts1.js' %}"></script>
+
+<script>
+    // Show loader when navigating to another page
+    function showLoader() {
+        document.getElementById("pageLoader").style.display = "flex";
+    }
+
+    // Hide loader on page load
+    window.addEventListener("load", function() {
+        document.getElementById("pageLoader").style.display = "none";
+    });
+</script>
+
+{% block scripts %}{% endblock %}
+
+</body>
+</html>

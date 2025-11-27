@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block title %}User Register{% endblock %}
+{% block content %}
+<style>
+.form-control {
+    color: #c2baba !important;
+}
+
+</style>
+
+<section class="login-section">
+<div class="cyber-card">
+
+    <h2 class="glow-title">Create an Account</h2>
+    <p class="sub-text">Join us to detect metabolic syndrome with confidence.</p>
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+    <div class="django-message {{ message.tags }}">
+        <span class="message-text">{{ message }}</span>
+
+        <!-- Close Button -->
+        <button class="close-btn" onclick="this.parentElement.style.display='none'">
+            &times;
+        </button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+<form action="{% url 'UserRegisterActions' %}" method="POST">
+    {% csrf_token %}
+
+    <div class="row">
+
+        <!-- Username -->
+        <div class="col-md-6">
+            <div class="floating-group">
+                {{ form.Username|add_class:"floating-input" }}
+                <label class="floating-label">Username</label>
+                <i class="bi bi-person icon"></i>
+            </div>
+        </div>
+
+        <!-- Login ID -->
+        <div class="col-md-6">
+            <div class="floating-group">
+                {{ form.loginid|add_class:"floating-input" }}
+                <label class="floating-label">Login ID</label>
+                <i class="bi bi-person-badge icon"></i>
+            </div>
+        </div>
+
+        <!-- Email -->
+        <div class="col-md-6">
+            <div class="floating-group">
+                {{ form.email|add_class:"floating-input" }}
+                <label class="floating-label">Email</label>
+                <i class="bi bi-envelope icon"></i>
+            </div>
+        </div>
+
+        <!-- Mobile -->
+        <div class="col-md-6">
+            <div class="floating-group">
+                {{ form.mobile|add_class:"floating-input" }}
+                <label class="floating-label">Mobile</label>
+                <i class="bi bi-phone icon"></i>
+            </div>
+        </div>
+
+        <!-- Password -->
+        <div class="col-md-6">
+            <div class="floating-group">
+                {{ form.password|add_class:"floating-input" }}
+                <label class="floating-label">Password</label>
+                <i class="bi bi-lock icon"></i>
+            </div>
+        </div>
+
+        <!-- Locality -->
+        <div class="col-md-6">
+            <div class="floating-group">
+                {{ form.locality|add_class:"floating-input" }}
+                <label class="floating-label">Locality</label>
+                <i class="bi bi-geo icon"></i>
+            </div>
+        </div>
+
+        <!-- City -->
+        <div class="col-md-6">
+            <div class="floating-group">
+                {{ form.city|add_class:"floating-input" }}
+                <label class="floating-label">City</label>
+                <i class="bi bi-building icon"></i>
+            </div>
+        </div>
+
+        <!-- State -->
+        <div class="col-md-6">
+            <div class="floating-group">
+                {{ form.state|add_class:"floating-input" }}
+                <label class="floating-label">State</label>
+                <i class="bi bi-flag icon"></i>
+            </div>
+        </div>
+
+        <!-- Address -->
+        <div class="col-md-12">
+            <div class="floating-group">
+                {{ form.address|add_class:"floating-input" }}
+                <label class="floating-label">Address</label>
+                <i class="bi bi-house icon"></i>
+            </div>
+        </div>
+
+    </div>
+
+    {{ form.status }}
+
+    <button type="submit" class="btn-glitch mt-2">Create Account</button>
+    <button type="reset" class="btn btn-outline-light btn-reset">Reset</button>
+
+    <p class="login-text mt-2">
+        Already have an account? <a href="{% url 'UserLogin' %}">Login</a>
+    </p>
+
+</form>
+</div>
+</section>
+
+{% endblock %}

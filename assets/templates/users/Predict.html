@@ -1,0 +1,330 @@
+{% extends 'users/Userbase.html' %}
+{% block title %}Potato Leaf Disease Prediction{% endblock %}
+{% load static %}
+{% block content %}
+
+<style>
+    /* ALL YOUR ORIGINAL STYLE — CLEANED & RETAINED */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    padding: 20px;
+    background: #6fb63d;   /* UPDATED COLOR */
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+
+.bg-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(rgba(45,160,90,0.75), rgba(45,160,90,0.75)), /* green overlay */
+        url("{% static 'img/hero-potato-leaves.jpg' %}"); /* your uploaded image */
+    background-size: cover;
+    background-position: center;
+    filter: blur(3px);
+    z-index: 0;
+}
+
+
+    @keyframes gradientShift {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    .leaf {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        opacity: .6;
+        animation: float-leaf 20s infinite ease-in-out;
+    }
+
+    @keyframes float-leaf {
+        0% {
+            transform: translateY(100vh) translateX(0) rotate(0);
+            opacity: 0;
+        }
+
+        10%,
+        90% {
+            opacity: .6;
+        }
+
+        100% {
+            transform: translateY(-100px) translateX(200px) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    .orb {
+        position: absolute;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(76, 175, 80, .4), transparent);
+        animation: float-orb 10s infinite ease-in-out;
+    }
+
+    @keyframes float-orb {
+
+        0%,
+        100% {
+            transform: translate(0, 0) scale(1);
+        }
+
+        50% {
+            transform: translate(50px, -50px) scale(1.2);
+        }
+    }
+
+    .container {
+        max-width: 650px;
+        margin: auto;
+        position: relative;
+        z-index: 10;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .header h1 {
+        color: #fff;
+        font-size: 2.5rem;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, .3);
+    }
+
+    .leaf-icon {
+        font-size: 4rem;
+        animation: rotate-bounce 3s infinite ease-in-out;
+    }
+
+    @keyframes rotate-bounce {
+
+        0%,
+        100% {
+            transform: rotate(-10deg);
+        }
+
+        25% {
+            transform: rotate(5deg);
+        }
+
+        75% {
+            transform: rotate(-5deg);
+        }
+    }
+
+    .card {
+        background: rgba(255, 255, 255, .95);
+        padding: 2rem;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, .4);
+    }
+
+    .form-label {
+        color: #1a4d2e;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        display: block;
+    }
+
+    .upload-area {
+        border: 3px dashed #4caf50;
+        border-radius: 15px;
+        padding: 3rem;
+        text-align: center;
+        background: linear-gradient(#f1f8f4, #e8f5e9);
+        cursor: pointer;
+        transition: .3s;
+    }
+
+    .upload-area:hover {
+        background: #c8e6c9;
+        transform: scale(1.02);
+    }
+
+    .upload-icon {
+        font-size: 4rem;
+        color: #4caf50;
+        margin-bottom: 1rem;
+    }
+
+    .preview-container {
+        margin-top: 1rem;
+        display: none;
+    }
+
+    .preview-container.active {
+        display: block;
+    }
+
+    .image-preview {
+        width: 100%;
+        max-height: 300px;
+        border-radius: 15px;
+        object-fit: cover;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #4caf50, #2d5f3f);
+        color: white;
+        border: none;
+        padding: 1rem;
+        width: 100%;
+        border-radius: 12px;
+        margin-top: 1rem;
+        font-size: 1.1rem;
+    }
+
+    .loading {
+        display: none;
+        text-align: center;
+        margin-top: 1rem;
+    }
+
+    .loading.active {
+        display: block;
+    }
+
+    .spinner {
+        border: 4px solid rgba(76, 175, 80, 0.1);
+        border-left-color: #87af4c;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        margin: auto;
+    }
+
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .result-card {
+        margin-top: 2rem;
+        padding: 2rem;
+        background: #e8f5e9;
+        border-left: 5px solid #4caf50;
+        border-radius: 15px;
+        display: none;
+    }
+
+    .result-card.active {
+        display: block;
+    }
+
+    .result-text {
+        font-size: 1.3rem;
+        font-weight: 600;
+        text-align: center;
+        color: #1a4d2e;
+    }
+</style>
+
+<div class="bg-animation"></div>
+
+<script>
+    // Floating leaves
+    for (let i = 0; i < 15; i++) {
+        const leaf = document.createElement('div');
+        leaf.className = 'leaf';
+        leaf.innerHTML = '🍃', '🌿', '🌱', '🍀';
+        leaf.style.left = Math.random() * 100 + '%';
+        leaf.style.fontSize = (Math.random() * 20 + 20) + 'px';
+        leaf.style.animationDelay = Math.random() * 20 + 's';
+        leaf.style.animationDuration = (Math.random() * 10 + 15) + 's';
+        document.body.appendChild(leaf);
+    }
+
+    // Orbs
+    for (let i = 0; i < 5; i++) {
+        const orb = document.createElement('div');
+        orb.className = 'orb';
+        orb.style.width = (Math.random() * 200 + 100) + 'px';
+        orb.style.height = orb.style.width;
+        orb.style.left = Math.random() * 100 + '%';
+        orb.style.top = Math.random() * 100 + '%';
+        orb.style.animationDelay = Math.random() * 10 + 's';
+        document.body.appendChild(orb);
+    }
+</script>
+
+<div class="container">
+    <div class="header">
+        <div class="leaf-icon">🥔</div>
+        <h1>Potato Leaf Disease Prediction</h1>
+    </div>
+
+    <div class="card">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label class="form-label">Upload Leaf Image</label>
+
+            <label class="upload-area" for="fileInput">
+                <div class="upload-icon">📤</div>
+                <div>Click to upload</div>
+            </label>
+
+            <input type="file" name="image" id="fileInput" accept="image/*" style="display:none;" required>
+
+            <div class="preview-container" id="previewContainer">
+                <img id="imagePreview" class="image-preview">
+            </div>
+
+            <button type="submit" class="btn-primary">🔍 Predict Disease</button>
+        </form>
+
+        {% if result %}
+        <div class="result-card active">
+            <h3 class="text-center">Prediction Result</h3>
+            <div class="result-text">{{ result }}</div>
+
+            {% if file_url %}
+            <img src="{{ file_url }}" class="image-preview mt-3">
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    const fileInput = document.getElementById('fileInput');
+    const previewContainer = document.getElementById('previewContainer');
+    const imagePreview = document.getElementById('imagePreview');
+
+    fileInput.addEventListener('change', () => {
+        const file = fileInput.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = e => {
+                imagePreview.src = e.target.result;
+                previewContainer.classList.add('active');
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+
+{% endblock %}

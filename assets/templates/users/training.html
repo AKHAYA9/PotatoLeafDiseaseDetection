@@ -1,0 +1,181 @@
+{% extends 'users/Userbase.html' %}
+{% load static %}
+{% block title %}Potato Leaf Disease Training{% endblock %}
+
+{% block content %}
+
+<style>
+/* GLOBAL THEME SAME AS PREDICTION PAGE */
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    background: #6fb63d;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.bg-animation {
+    position: fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: 
+        linear-gradient(rgba(45,160,90,0.75), rgba(45,160,90,0.75)),
+        url("{% static 'img/hero-potato-leaves.jpg' %}");
+    background-size: cover;
+    background-position: center;
+    filter: blur(3px);
+    z-index: 0;
+}
+
+.leaf, .orb { position:absolute; }
+
+.leaf {
+    width:40px; height:40px;
+    opacity:.6;
+    animation: float-leaf 20s infinite ease-in-out;
+}
+
+@keyframes float-leaf {
+    0% { transform: translateY(100vh) translateX(0) rotate(0); opacity:0; }
+    10%, 90% { opacity:.6; }
+    100% { transform: translateY(-100px) translateX(200px) rotate(360deg); opacity:0; }
+}
+
+.orb {
+    border-radius:50%;
+    background: radial-gradient(circle, rgba(76,175,80,.4), transparent);
+    animation: float-orb 10s infinite ease-in-out;
+}
+
+@keyframes float-orb {
+    0%,100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(50px,-50px) scale(1.2); }
+}
+
+/* PAGE CONTENT */
+.container {
+    max-width: 950px;
+    margin:auto;
+    position:relative;
+    z-index:10;
+    padding: 120px 20px 60px 20px;
+}
+
+.page-title {
+    text-align:center;
+    font-size:2.5rem;
+    font-weight:700;
+    color:white;
+    margin-bottom:2rem;
+    text-shadow:2px 2px 8px rgba(0,0,0,.3);
+}
+
+.glass-card {
+    background: rgba(255,255,255,.12);
+    backdrop-filter: blur(15px);
+    border-radius:25px;
+    padding:40px 30px;
+    box-shadow:0 0 25px rgba(0,0,0,0.15);
+    border:1px solid rgba(255,255,255,.25);
+}
+
+.metric-box {
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(10px);
+    padding:18px 25px;
+    border-radius:15px;
+    font-size:1.3rem;
+    color:#fff;
+    margin-bottom:15px;
+    font-weight:600;
+    display:flex;
+    justify-content:space-between;
+    border-left:6px solid #4caf50;
+}
+
+.img-block {
+    margin-top:35px;
+    text-align:center;
+}
+
+.img-block h3 {
+    color: #e6ffe9;
+    font-size:1.6rem;
+    margin-bottom:15px;
+    text-shadow:0 0 7px rgba(0,0,0,.4);
+}
+
+.graph-img {
+    width:100%;
+    max-width:850px;
+    border-radius:18px;
+    box-shadow:0 10px 35px rgba(0,0,0,.4);
+    transition:transform .3s;
+}
+
+.graph-img:hover { transform: scale(1.03); }
+</style>
+
+<!-- BACKGROUND -->
+<div class="bg-animation"></div>
+
+<!-- FLOATING LEAVES AND ORBS -->
+<script>
+for(let i=0;i<15;i++){
+    const leaf=document.createElement('div');
+    leaf.className='leaf';
+    leaf.style.left=Math.random()*100+'%';
+    leaf.style.fontSize=(Math.random()*20+20)+'px';
+    leaf.style.animationDelay=Math.random()*20+'s';
+    leaf.style.animationDuration=(Math.random()*10+15)+'s';
+    leaf.innerHTML='🍃';
+    document.body.appendChild(leaf);
+}
+for(let i=0;i<5;i++){
+    const orb=document.createElement('div');
+    orb.className='orb';
+    orb.style.width=(Math.random()*200+100)+'px';
+    orb.style.height=orb.style.width;
+    orb.style.left=Math.random()*100+'%';
+    orb.style.top=Math.random()*100+'%';
+    orb.style.animationDelay=Math.random()*10+'s';
+    document.body.appendChild(orb);
+}
+</script>
+
+<!-- PAGE CONTENT -->
+<div class="container">
+    <h1 class="page-title">📊 Training Evaluation Results</h1>
+    <div class="glass-card">
+
+        <div class="metric-box">
+            <span>Model Accuracy:</span>
+            <span>{{ accuracy }}%</span>
+        </div>
+
+        <div class="metric-box">
+            <span>Model Loss:</span>
+            <span>{{ loss }}</span>
+        </div>
+
+        <div class="img-block">
+            <h3>📈 Accuracy Curve</h3>
+            <img src="{{ acc_img }}" class="graph-img" alt="Accuracy Curve">
+        </div>
+
+        <div class="img-block">
+            <h3>📉 Loss Curve</h3>
+            <img src="{{ loss_img }}" class="graph-img" alt="Loss Curve">
+        </div>
+
+        <div class="img-block">
+            <h3>🧩 Confusion Matrix</h3>
+            <img src="{{ cm_img }}" class="graph-img" alt="Confusion Matrix">
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

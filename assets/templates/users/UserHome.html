@@ -1,0 +1,156 @@
+{% extends "users/Userbase.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section parallax" id="home">
+    <div class="parallax-bg" style="background-image: url('{% static "img/hero-potato-leaves.jpg" %}');"></div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+        <h1 class="hero-title animate-fade-in">Potato Leaf Disease Detection</h1>
+        <p class="hero-subtitle animate-fade-in-delay">
+            Advanced AI-Powered Plant Health Monitoring System
+        </p>
+        <div class="hero-buttons animate-fade-in-delay-2">
+            <a href="#predict" class="btn btn-primary">Start Detection</a>
+        </div>
+    </div>
+
+    <div class="scroll-indicator">
+        <div class="mouse"><div class="wheel"></div></div>
+        <p>Scroll Down</p>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section" id="dataset">
+    <div class="container">
+        <h2 class="section-title fade-in-on-scroll">Our Features</h2>
+
+        <div class="features-grid">
+            <div class="feature-card fade-in-on-scroll">
+                <div class="feature-icon">
+                    <img src="{% static 'img/feature-detection.png' %}" alt="Detection">
+                </div>
+                <h3>Disease Detection</h3>
+                <p>Accurately identify potato leaf diseases using machine learning.</p>
+            </div>
+
+            <div class="feature-card fade-in-on-scroll">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7c0-2-1-3-3-3H7C5 4 4 5 4 7z"/>
+                        <path d="M9 4v16M15 4v16M4 9h16M4 15h16"/>
+                    </svg>
+                </div>
+                <h3>Comprehensive Dataset</h3>
+                <p>Access thousands of labeled potato leaf images and disease types.</p>
+            </div>
+
+            <div class="feature-card fade-in-on-scroll">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                </div>
+                <h3>Real-time Analysis</h3>
+                <p>Instant results with our optimized neural network models.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Training Section -->
+<section class="training-section parallax-light" id="training">
+    <div class="parallax-bg-pattern" style="background-image: url('{% static "img/background-pattern.jpg" %}');"></div>
+
+    <div class="container">
+        <div class="training-content">
+
+            <div class="training-text fade-in-on-scroll">
+                <h2>Model Training</h2>
+                <p>Deep learning pipeline improving accuracy continuously.</p>
+
+                <ul class="training-features">
+                    <li><svg ...></svg> Convolutional Neural Networks</li>
+                    <li><svg ...></svg> Transfer Learning Optimization</li>
+                    <li><svg ...></svg> Data Augmentation</li>
+                    <li><svg ...></svg> Cross-validation Testing</li>
+                </ul>
+
+                <a href="#training" class="btn btn-primary">Start Training</a>
+            </div>
+
+            <div class="training-visual fade-in-on-scroll">
+                <div class="stats-card">
+                    <div class="stat-item">
+                        <h3 class="counter" data-target="98">0</h3>
+                        <p>Accuracy %</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 class="counter" data-target="15000">0</h3>
+                        <p>Training Images</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 class="counter" data-target="2">0</h3>
+                        <p>Disease Types</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Prediction Section -->
+<section class="prediction-section" id="predict">
+    <div class="container">
+        <h2 class="section-title fade-in-on-scroll">Make Predictions</h2>
+
+        <div class="prediction-content">
+            <div class="upload-area fade-in-on-scroll">
+                <div class="upload-box">
+                    <svg ...></svg>
+                    <h3>Upload Leaf Image</h3>
+                    <p>Drag and drop or click to select</p>
+                    <button class="btn btn-primary">Choose File</button>
+                </div>
+            </div>
+
+            <div class="prediction-info fade-in-on-scroll">
+                <h3>How It Works</h3>
+
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Upload Image</h4>
+                            <p>Select a clear potato leaf photo</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>AI Analysis</h4>
+                            <p>Our model processes the image instantly</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Get Results</h4>
+                            <p>Receive disease diagnosis and recommendations</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

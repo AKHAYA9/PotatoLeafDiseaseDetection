@@ -1,0 +1,224 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - Potato Leaf Disease Detection{% endblock %}
+
+{% block content %}
+
+
+<!-- Hero Section -->
+
+<section class="hero-section" id="home">
+    <div class="container">
+        <div class="hero-content">
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="django-message {{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <h1 class="hero-title animate-fade-in">
+                <span class="#">Potato Leaf Disease</span>
+                <br>
+                <span class="typing-text">Detection System</span>
+            </h1>
+            <p class="hero-subtitle animate-slide-up">Powered by Advanced Deep Learning Technology</p>
+            <div class="hero-buttons animate-slide-up">
+                <a href="#features" class="btn-primary-green">
+                    <i class="bi bi-search"></i> Start Detection
+                </a>
+                <a href="#how-it-works" class="btn-outline-green">
+                    <i class="bi bi-info-circle"></i> Learn More
+                </a>
+            </div>
+            <div class="hero-stats animate-fade-in">
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Accuracy</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">10K+</div>
+                    <div class="stat-label">Scans</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Available</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section" id="features">
+    <div class="container">
+        <h2 class="section-title">
+            <span class="glow-green">Key Features</span>
+        </h2>
+        <p class="section-subtitle">Advanced AI-Powered Disease Detection</p>
+
+        <div class="features-grid">
+            <div class="feature-card" data-animate="fade-in">
+                <div class="feature-icon">
+                    <i class="bi bi-cpu"></i>
+                </div>
+                <h3>Deep Learning AI</h3>
+                <p>State-of-the-art neural networks trained on thousands of potato leaf images for accurate disease
+                    identification.</p>
+            </div>
+
+            <div class="feature-card" data-animate="fade-in">
+                <div class="feature-icon">
+                    <i class="bi bi-lightning-charge"></i>
+                </div>
+                <h3>Instant Results</h3>
+                <p>Get disease detection results in seconds with real-time analysis and confidence scores.</p>
+            </div>
+
+            <div class="feature-card" data-animate="fade-in">
+                <div class="feature-icon">
+                    <i class="bi bi-shield-check"></i>
+                </div>
+                <h3>High Accuracy</h3>
+                <p>98% accuracy rate in detecting common potato diseases including Early Blight, Late Blight, and
+                    healthy leaves.</p>
+            </div>
+
+            <div class="feature-card" data-animate="fade-in">
+                <div class="feature-icon">
+                    <i class="bi bi-graph-up-arrow"></i>
+                </div>
+                <h3>Disease Analytics</h3>
+                <p>Track disease patterns, view historical data, and get insights for better crop management.</p>
+            </div>
+
+            <div class="feature-card" data-animate="fade-in">
+                <div class="feature-icon">
+                    <i class="bi bi-phone"></i>
+                </div>
+                <h3>Mobile Friendly</h3>
+                <p>Access the system from any device - smartphone, tablet, or desktop for on-field detection.</p>
+            </div>
+
+            <div class="feature-card" data-animate="fade-in">
+                <div class="feature-icon">
+                    <i class="bi bi-book"></i>
+                </div>
+                <h3>Treatment Guide</h3>
+                <p>Receive detailed treatment recommendations and preventive measures for detected diseases.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works-section" id="how-it-works">
+    <div class="container">
+        <h2 class="section-title">
+            <span class="glow-green">How It Works</span>
+        </h2>
+        <p class="section-subtitle">Simple 4-Step Process</p>
+
+        <div class="steps-container">
+            <div class="step-item" data-animate="slide-left">
+                <div class="step-number">01</div>
+                <div class="step-content">
+                    <div class="step-icon">
+                        <i class="bi bi-camera"></i>
+                    </div>
+                    <h3>Capture Image</h3>
+                    <p>Take a clear photo of the potato leaf using your smartphone or camera.</p>
+                </div>
+            </div>
+
+            <div class="step-item" data-animate="slide-right">
+                <div class="step-number">02</div>
+                <div class="step-content">
+                    <div class="step-icon">
+                        <i class="bi bi-upload"></i>
+                    </div>
+                    <h3>Upload Image</h3>
+                    <p>Upload the image to our secure platform for analysis.</p>
+                </div>
+            </div>
+
+            <div class="step-item" data-animate="slide-left">
+                <div class="step-number">03</div>
+                <div class="step-content">
+                    <div class="step-icon">
+                        <i class="bi bi-gear"></i>
+                    </div>
+                    <h3>AI Analysis</h3>
+                    <p>Our deep learning model analyzes the image and identifies potential diseases.</p>
+                </div>
+            </div>
+
+            <div class="step-item" data-animate="slide-right">
+                <div class="step-number">04</div>
+                <div class="step-content">
+                    <div class="step-icon">
+                        <i class="bi bi-check-circle"></i>
+                    </div>
+                    <h3>Get Results</h3>
+                    <p>Receive detailed results with disease classification and treatment recommendations.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Diseases Section -->
+<section class="diseases-section">
+    <div class="container">
+        <h2 class="section-title">
+            <span class="glow-green">Detectable Diseases</span>
+        </h2>
+        <p class="section-subtitle">Our AI Can Identify These Potato Leaf Conditions</p>
+
+        <div class="diseases-grid">
+            <div class="disease-card" data-animate="zoom-in">
+                <div class="disease-image">
+                    <i class="bi bi-exclamation-triangle"></i>
+                </div>
+                <h3>Early Blight</h3>
+                <p>Caused by Alternaria solani, characterized by dark brown spots with concentric rings.</p>
+                <span class="severity-badge high">High Risk</span>
+            </div>
+
+            <div class="disease-card" data-animate="zoom-in">
+                <div class="disease-image">
+                    <i class="bi bi-exclamation-octagon"></i>
+                </div>
+                <h3>Late Blight</h3>
+                <p>Caused by Phytophthora infestans, shows water-soaked lesions and white mold growth.</p>
+                <span class="severity-badge critical">Critical</span>
+            </div>
+
+            <div class="disease-card" data-animate="zoom-in">
+                <div class="disease-image">
+                    <i class="bi bi-check-circle"></i>
+                </div>
+                <h3>Healthy Leaf</h3>
+                <p>Normal, healthy potato leaves with vibrant green color and no disease symptoms.</p>
+                <span class="severity-badge safe">Healthy</span>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    // Auto-hide Django messages after 3 seconds
+    setTimeout(function () {
+        let messages = document.querySelectorAll('.message, .alert, .django-message');
+        messages.forEach(msg => {
+            msg.style.transition = "opacity 0.5s ease";
+            msg.style.opacity = "0";
+
+            // Remove element from DOM after fade-out
+            setTimeout(() => msg.remove(), 500);
+        });
+    }, 3000);  // 3 seconds
+</script>
+{% endblock %}

@@ -1,0 +1,260 @@
+{% extends 'admins/adminbase.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<style>
+    .dashboard-section {
+        position: relative;
+        margin: 0 auto;
+        max-width: 1400px;
+        padding: 60px 40px;
+        animation: fadeInScale 0.8s ease;
+    }
+
+    @keyframes fadeInScale {
+        from { transform: scale(0.95); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+
+    /* Header section with gradient text */
+    .dashboard-header {
+        text-align: center;
+        margin-bottom: 60px;
+        animation: slideInFromTop 0.8s ease;
+    }
+
+    @keyframes slideInFromTop {
+        from { transform: translateY(-50px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    .dashboard-header h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #fff 0%, #f093fb 50%, #fff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 15px;
+        text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        animation: textGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes textGlow {
+        0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3)); }
+        50% { filter: drop-shadow(0 0 20px rgba(240, 147, 251, 0.6)); }
+    }
+
+    .dashboard-header p {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.2rem;
+        font-weight: 300;
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    /* Stats Grid with staggered animation */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 40px;
+        justify-items: center;
+    }
+
+    .stat-box {
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 25px;
+        padding: 45px 35px;
+        text-align: center;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+        animation: cardSlideIn 0.6s ease forwards;
+        opacity: 0;
+    }
+
+    .stat-box:nth-child(1) { animation-delay: 0.1s; }
+    .stat-box:nth-child(2) { animation-delay: 0.2s; }
+    .stat-box:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes cardSlideIn {
+        from { transform: translateY(50px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Animated gradient border */
+    .stat-box::before {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #667eea);
+        border-radius: 25px;
+        opacity: 0;
+        z-index: -1;
+        background-size: 400%;
+        animation: gradientRotate 8s linear infinite;
+        transition: opacity 0.3s ease;
+    }
+
+    @keyframes gradientRotate {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    .stat-box:hover::before {
+        opacity: 1;
+    }
+
+    .stat-box:hover {
+        transform: translateY(-15px) scale(1.05);
+        box-shadow: 0 25px 50px rgba(240, 147, 251, 0.4);
+    }
+
+    /* Icon container with pulse animation */
+    .stat-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 20px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        color: #fff;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        animation: iconPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes iconPulse {
+        0%, 100% { transform: scale(1); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); }
+        50% { transform: scale(1.1); box-shadow: 0 15px 35px rgba(240, 147, 251, 0.4); }
+    }
+
+    .stat-title {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.85);
+        margin-bottom: 15px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+    }
+
+    .stat-value {
+        font-size: 3rem;
+        font-weight: 700;
+        color: #fff;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        animation: numberCount 1s ease-out;
+    }
+
+    @keyframes numberCount {
+        from { transform: scale(0); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+
+    /* Floating particles effect */
+    .stat-box::after {
+        content: '✨';
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 1.5rem;
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .stat-box:hover::after {
+        opacity: 1;
+        animation: sparkle 1s ease-in-out infinite;
+    }
+
+    @keyframes sparkle {
+        0%, 100% { transform: rotate(0deg) scale(1); }
+        50% { transform: rotate(180deg) scale(1.2); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .dashboard-header h1 {
+            font-size: 2rem;
+        }
+
+        .dashboard-header p {
+            font-size: 1rem;
+        }
+
+        .stat-box {
+            padding: 35px 25px;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+        }
+
+        .stats-grid {
+            gap: 25px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .dashboard-section {
+            padding: 40px 20px;
+        }
+
+        .dashboard-header h1 {
+            font-size: 1.8rem;
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            font-size: 2rem;
+        }
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="dashboard-section">
+
+        <div class="dashboard-header">
+            <h1>Welcome Back, Admin</h1>
+            <p>Manage your system, track insights, and monitor real-time metabolic syndrome detection statistics.</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-icon">
+                    <i class="fa fa-users"></i>
+                </div>
+                <div class="stat-title">Total Users</div>
+                <div class="stat-value">{{ total_users }}</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="stat-icon">
+                    <i class="fa fa-user-check"></i>
+                </div>
+                <div class="stat-title">Active Users</div>
+                <div class="stat-value">{{ active_users }}</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="stat-icon">
+                    <i class="fa fa-clock"></i>
+                </div>
+                <div class="stat-title">Pending Approvals</div>
+                <div class="stat-value">{{ pending_approvals }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

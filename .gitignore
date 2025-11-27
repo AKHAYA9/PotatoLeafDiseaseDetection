@@ -1,0 +1,30 @@
+# Virtual environment
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Django database
+db.sqlite3
+
+# Media uploads
+media/
+
+# Deep learning models
+*.h5
+*.hdf5
+*.pb
+*.onnx
+*.ckpt
+*.tflite
+
+# System files
+.DS_Store
+
+# VSCode
+.vscode/
+
+# Logs
+*.log

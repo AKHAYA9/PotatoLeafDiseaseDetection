@@ -1,0 +1,6 @@
+Django==4.2
+gunicorn
+tensorflow==2.17
+numpy
+pillow
+
