@@ -3,4 +3,4 @@ gunicorn
 tensorflow==2.17
 numpy
 pillow
-
+django-widget-tweaks
